@@ -1,4 +1,4 @@
-Eksploracja_Danych
-==================
+Eksploator danych
+=================
 
 Program na zajęcia Eksploracja danych

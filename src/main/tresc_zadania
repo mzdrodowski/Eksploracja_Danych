@@ -1,0 +1,46 @@
+ Dany jest zbiór uczący zawierający n atrybutów (kolumn) 
+oraz kolumnę (n+1) opisującą etykiety klasy, do której 
+należy każdy obiekt. Należy napisać program, który podzieli
+ przestrzeń na obszary przynależności do poszczególnych 
+klas. Każdy z obszarów będzie opisany przez wektor binarny 
+np. o długości 3, co oznacza, że znaleziono trzy 
+hiperpłaszczyzny, które podzieliły przestrzeń na np. 6 
+obszarów związanych z klasami.
+
+Opis dla przypadku dwuwymiarowego (dwie zmienne + klasa):
+Szukamy takiej prostej (równoległej do jednej z osi x lub y),
+ która odseparuje jak najwięcej elementów jednej klasy 
+(wszystkie lub część klasy) od pozostałych obiektów w 
+zbiorze. Oddzielone punkty będą znajdowały się po dodatniej 
+stronie prostej, pozostałe - po ujemnej. Wektor binarny 
+będzie miał długość 1. Wartość 1 w wektorze będzie oznaczała
+tę część przestrzeni, w której znalazły się oddzielone 
+punkty, zero pozostałą część przestrzeni. Następnie 
+usuwamy oddzielone dane ze zbioru i powtarzamy poszukiwanie 
+kolejnej prostej, która oddzieli jak najwięcej elementów 
+z dowolnej klasy. Po znalezieniu prostej wydłużamy wektor 
+binarny. Jeśli znaleziono prostą równoległą do poprzedniej,
+ przestrzeń jest podzielona na trzy obszary (z wektorami
+ [1,0], [0,1], [0,0]). Jeśli znalezione proste są 
+prostopadłe, wówczas przestrzeń jest podzielona na 4 
+ćwiartki opisane przez wektory [1,0],[1,1],[0,1],[0,0]. 
+Pętlę powtarzamy "odcinając" kolejne grupy punktów i 
+wydłużając wektor binarny. Zadanie polega na znalezieniu 
+jak najkrótszego wektora binarnego.
+
+Po podzieleniu całej przestrzeni, oryginalnym punktom
+ odpowiadają wektory binarne. Należy zapisać do zbioru
+ (np. tekstowego) zamiast oryginalnych wartości zmiennych 
+wektory binarne i klasę, do jakiej należą obiekty. W ten 
+sposób powinien powstać nowy zbiór danych w nowej 
+przestrzeni. Następnie należy sprawdzić, wykorzystując np. 
+system Weka, czy klasy w nowym zbiorze są separowalne 
+liniowo (tzn. czy za pomocą klasyfikatora liniowego na 
+całym zbiorze otrzymamy 100% jakość klasyfikacji).
+
+- Program powinien działać dla dowolnej liczby kolumn.
+- W przypadku dwuwymiarowym należy zrobić wizualizację 
+danych ze znalezionymi prostymi oddzielającymi dane.
+- Powinna istnieć możliwość zaklasyfikowania nowego punktu 
+do jednej klas - użytkownik podaje wartości atrybutów, 
+program zwraca klasę, do której obiekt powinien należeć. 

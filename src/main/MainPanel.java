@@ -5,6 +5,14 @@
  */
 package main;
 
+import exploator.utils.FileTypeFilter;
+import java.io.File;
+
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+
 /**
  *
  * @author michal
@@ -16,6 +24,14 @@ public class MainPanel extends javax.swing.JFrame {
      */
     public MainPanel() {
         initComponents();
+        
+        // dodawanie filtra do file choosera
+        fileChooser.removeChoosableFileFilter(fileChooser.getChoosableFileFilters()[0]);
+        
+        FileFilter textFileFilter = new FileTypeFilter(".txt", "Plik tekstowy");
+        FileFilter csvFileFilter = new FileTypeFilter(".csv", "Plik csv");
+        fileChooser.addChoosableFileFilter(textFileFilter);
+        fileChooser.addChoosableFileFilter(csvFileFilter);
     }
 
     /**
@@ -27,17 +43,35 @@ public class MainPanel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fileChooser = new javax.swing.JFileChooser();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        Open = new javax.swing.JMenuItem();
+        ExitMItem = new javax.swing.JMenuItem();
+
+        fileChooser.setDialogTitle("Otwieranie pliku");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jMenu1.setText("Plik");
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        Open.setText("Otwórz dane");
+        Open.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenActionPerformed(evt);
+            }
+        });
+        jMenu1.add(Open);
+
+        ExitMItem.setText("Zakończ");
+        ExitMItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitMItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(ExitMItem);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -49,11 +83,30 @@ public class MainPanel extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
+            .addGap(0, 344, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
+        int returnVal = fileChooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+           // try { 
+                //What to do with the file, e.g. display it in a TextArea
+               // textarea.read( new FileReader(file.getAbsolutePath()), null);
+          //  }catch (IOException ex){
+                System.out.println("problem accessing file" + file.getAbsolutePath());
+           // }
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+    }//GEN-LAST:event_OpenActionPerformed
+
+    private void ExitMItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitMItemActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitMItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -66,7 +119,7 @@ public class MainPanel extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("SystemLookAndFell".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -91,8 +144,10 @@ public class MainPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ExitMItem;
+    private javax.swing.JMenuItem Open;
+    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }
