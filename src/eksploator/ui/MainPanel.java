@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package eksploator.ui;
 
 import exploator.utils.FileTypeFilter;
 import java.io.File;
@@ -12,6 +12,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
+import main.DataObject;
+import main.Explorer;
 
 /**
  *
@@ -19,10 +21,11 @@ import javax.swing.filechooser.FileFilter;
  */
 public class MainPanel extends javax.swing.JFrame {
 
+    private static MainPanel instance = null;
     /**
      * Creates new form MainPanel
      */
-    public MainPanel() {
+    private MainPanel() {
         initComponents();
         
         // dodawanie filtra do file choosera
@@ -33,7 +36,12 @@ public class MainPanel extends javax.swing.JFrame {
         fileChooser.addChoosableFileFilter(textFileFilter);
         fileChooser.addChoosableFileFilter(csvFileFilter);
     }
-
+    public static MainPanel getInstance(){
+        if(instance==null){
+            instance = new MainPanel();
+        }
+        return instance;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,6 +52,9 @@ public class MainPanel extends javax.swing.JFrame {
     private void initComponents() {
 
         fileChooser = new javax.swing.JFileChooser();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
+        tabbedPane = new javax.swing.JTabbedPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         Open = new javax.swing.JMenuItem();
@@ -52,6 +63,22 @@ public class MainPanel extends javax.swing.JFrame {
         fileChooser.setDialogTitle("Otwieranie pliku");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jToolBar1.setRollover(true);
+
+        jButton1.setText("jButton1");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton1);
+
+        getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(tabbedPane, java.awt.BorderLayout.CENTER);
 
         jMenu1.setText("Plik");
 
@@ -75,30 +102,19 @@ public class MainPanel extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 513, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 344, Short.MAX_VALUE)
-        );
-
-        pack();
+        setSize(new java.awt.Dimension(635, 506));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
         int returnVal = fileChooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
+            
             File file = fileChooser.getSelectedFile();
-           // try { 
-                //What to do with the file, e.g. display it in a TextArea
-               // textarea.read( new FileReader(file.getAbsolutePath()), null);
-          //  }catch (IOException ex){
-                System.out.println("problem accessing file" + file.getAbsolutePath());
-           // }
+            
+            DataObject dataObject = Explorer.getExplorer().openDataFile(file);
+            tabbedPane.add(new DataPanel(dataObject));
+            
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -107,6 +123,10 @@ public class MainPanel extends javax.swing.JFrame {
     private void ExitMItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitMItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ExitMItemActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,7 +167,10 @@ public class MainPanel extends javax.swing.JFrame {
     private javax.swing.JMenuItem ExitMItem;
     private javax.swing.JMenuItem Open;
     private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }
