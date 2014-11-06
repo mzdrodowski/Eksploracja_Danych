@@ -35,6 +35,9 @@ public class Explorer {
         return instance;
     }
     
+   
+    
+    
     /**
      * Tworzy obiekt danych z pliku
      * @param f
@@ -109,6 +112,24 @@ public class Explorer {
      * Podzaiał na obszary przynależności
      */
     public void divideToAffilationRegions(DataObject dataObject){
+        int attrNum = dataObject.getAttributesNum();
+        int rowNum = dataObject.getRows();
+
         
-    }
+        class element {
+            int orderNum;
+            int label;
+            
+        }
+        
+        List<element> sortResults = new ArrayList<>();
+
+        int i = 0;
+        for(i=0;i<attrNum;i++){
+            
+        }
+        
+    } //divideToAffiliationRegions
+    
+    
 }
