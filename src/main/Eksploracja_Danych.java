@@ -6,10 +6,8 @@
 package main;
 
 import eksploator.ui.MainPanel;
-import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
